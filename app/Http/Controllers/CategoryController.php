@@ -56,24 +56,34 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Category $category)
     {
-        //
+        return view('categories.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            // uniqueチェック時、自分自身のIDを除外するのがコツ！
+            'slug' => 'required|string|max:255|unique:categories,slug,' . $category->id,
+        ]);
+
+        $category->update($validated);
+
+        return redirect()->route('categories.index')->with('status', 'カテゴリーを更新しました！');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return redirect()->route('categories.index')->with('status', 'カテゴリーを削除しました！');
     }
 }
