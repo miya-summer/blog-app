@@ -1,7 +1,12 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mt-4">
         @if (session('status'))
-            <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg" role="alert">
+            <div 
+                x-data="{ show: true }" 
+                x-show="show" 
+                x-init="setTimeout(() => show = false, 3000)"
+                class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg transition-opacity duration-1000"
+            >
                 {{ session('status') }}
             </div>
         @endif
@@ -68,13 +73,37 @@
                                         編集
                                     </a>
 
-                                    <form method="POST" action="{{ route('categories.destroy', $category) }}" class="inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:text-red-900 text-sm" onclick="return confirm('本当に削除しますか？');">
-                                            削除
-                                        </button>
-                                    </form>
+                                    <x-danger-button
+                                        x-data=""
+                                        x-on:click.prevent="$dispatch('open-modal', 'confirm-category-deletion-{{ $category->id }}')"
+                                    >
+                                        削除
+                                    </x-danger-button>
+
+                                    <x-modal name="confirm-category-deletion-{{ $category->id }}" :show="$errors->userDeletion->isNotEmpty()" focusable>
+                                        <form method="post" action="{{ route('categories.destroy', $category) }}" class="p-6">
+                                            @csrf
+                                            @method('delete')
+
+                                            <h2 class="text-lg font-medium text-gray-900">
+                                                「{{ $category->name }}」を削除してもよろしいですか？
+                                            </h2>
+
+                                            <p class="mt-1 text-sm text-gray-600">
+                                                一度削除すると、このカテゴリーに関連付けられたデータも影響を受ける可能性があります。
+                                            </p>
+
+                                            <div class="mt-6 flex justify-end">
+                                                <x-secondary-button x-on:click="$dispatch('close')">
+                                                    キャンセル
+                                                </x-secondary-button>
+
+                                                <x-danger-button class="ms-3">
+                                                    カテゴリーを削除する
+                                                </x-danger-button>
+                                            </div>
+                                        </form>
+                                    </x-modal>
                                 </td>
                             </tr>
                         @empty
