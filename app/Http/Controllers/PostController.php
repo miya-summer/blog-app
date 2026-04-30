@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class PostController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * 記事一覧を表示
      */
     public function index()
     {
@@ -32,8 +32,8 @@ class PostController extends Controller
         return view('posts.create', compact('categories'));
     }
 
-/**
-     * 2. 投稿内容をDBに保存する
+    /**
+     * 投稿内容を保存
      */
     public function store(Request $request)
     {
