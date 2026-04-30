@@ -19,6 +19,14 @@
                     <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
                         {{ __('カテゴリー管理') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
+                        {{ __('記事一覧') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('posts.create')" :active="request()->routeIs('posts.create')">
+                        {{ __('新規投稿') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -77,6 +85,14 @@
 
             <x-responsive-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">
                 {{ __('カテゴリー管理') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
+                {{ __('記事一覧') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('posts.create')" :active="request()->routeIs('posts.create')">
+                {{ __('新規投稿') }}
             </x-responsive-nav-link>
         </div>
 
