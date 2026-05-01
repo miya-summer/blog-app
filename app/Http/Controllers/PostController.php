@@ -74,7 +74,11 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        // 全カテゴリを取得（チェックボックス用）
+        $categories = Category::all();
+
+        // posts/edit.blade.php を表示（現在の記事データとカテゴリを渡す）
+        return view('posts.edit', compact('post', 'categories'));
     }
 
     /**
@@ -82,7 +86,22 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $request->validate([
+            'title' => 'required|max:255',
+            'body' => 'required',
+            'categories' => 'array',
+        ]);
+
+        // 記事本体を更新
+        $post->update([
+            'title' => $request->title,
+            'body' => $request->body,
+        ]);
+
+        // 中間テーブルを同期（これだけで追加・削除を自動判別！）
+        $post->categories()->sync($request->categories ?? []);
+
+        return redirect()->route('posts.index')->with('message', '記事を更新しました！');
     }
 
     /**
@@ -90,6 +109,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete(); // 中間テーブルの紐付けは、MigrationでonDelete('cascade')していれば自動で消えます
+        return redirect()->route('posts.index')->with('message', '記事を削除しました');
     }
 }
