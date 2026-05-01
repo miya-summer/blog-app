@@ -28,7 +28,7 @@
                     </div>
 
                     <div class="mt-4 flex gap-4 justify-end" x-data="{ confirmingPostDeletion: false }">
-                        <a href="{{ route('posts.edit', $post) }}" class="text-indigo-600 font-bold">編集</a>
+                        <a href="{{ route('admin.posts.edit', $post) }}" class="text-indigo-600 font-bold">編集</a>
 
                         <!-- 削除ボタン（これを押すとモーダルが開く） -->
                         <button 
@@ -40,7 +40,7 @@
 
                         <!-- 削除確認モーダル -->
                         <x-modal name="confirm-post-deletion-{{ $post->id }}" focusable>
-                            <form method="post" action="{{ route('posts.destroy', $post) }}" class="p-6">
+                            <form method="post" action="{{ route('admin.posts.destroy', $post) }}" class="p-6">
                                 @csrf
                                 @method('delete')
 

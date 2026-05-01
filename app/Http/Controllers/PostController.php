@@ -58,7 +58,7 @@ class PostController extends Controller
         }
 
         // 保存が終わったら、一旦投稿画面に戻る（またはメッセージを出す）
-        return redirect()->route('posts.create')->with('message', '記事を保存しました！');
+        return redirect()->route('admin.posts.create')->with('message', '記事を保存しました！');
     }
 
     /**
@@ -101,7 +101,7 @@ class PostController extends Controller
         // 中間テーブルを同期（これだけで追加・削除を自動判別！）
         $post->categories()->sync($request->categories ?? []);
 
-        return redirect()->route('posts.index')->with('message', '記事を更新しました！');
+        return redirect()->route('admin.posts.index')->with('message', '記事を更新しました！');
     }
 
     /**
@@ -110,6 +110,6 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete(); // 中間テーブルの紐付けは、MigrationでonDelete('cascade')していれば自動で消えます
-        return redirect()->route('posts.index')->with('message', '記事を削除しました');
+        return redirect()->route('admin.posts.index')->with('message', '記事を削除しました');
     }
 }

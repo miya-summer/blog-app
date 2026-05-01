@@ -8,7 +8,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <form method="post" action="{{ route('categories.update', $category) }}" class="space-y-6">
+                <form method="post" action="{{ route('admin.categories.update', $category) }}" class="space-y-6">
                     @csrf
                     @method('PATCH') 
                     <div>
@@ -23,7 +23,7 @@
 
                     <div class="flex items-center gap-4">
                         <x-primary-button>更新</x-primary-button>
-                        <a href="{{ route('categories.index') }}" class="text-sm text-gray-600">キャンセル</a>
+                        <a href="{{ route('admin.categories.index') }}" class="text-sm text-gray-600">キャンセル</a>
                     </div>
                 </form>
             </div>

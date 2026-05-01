@@ -9,7 +9,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <form action="{{ route('posts.update', $post) }}" method="POST" class="space-y-6">
+                <form action="{{ route('admin.posts.update', $post) }}" method="POST" class="space-y-6">
                     @csrf
                     @method('PATCH') {{-- 更新時はPATCHメソッドを使う --}}
 
@@ -41,7 +41,7 @@
 
                     <div class="flex items-center gap-4">
                         <x-primary-button>更新する</x-primary-button>
-                        <a href="{{ route('posts.index') }}" class="text-sm text-gray-600 underline">キャンセル</a>
+                        <a href="{{ route('admin.posts.index') }}" class="text-sm text-gray-600 underline">キャンセル</a>
                     </div>
                 </form>
             </div>

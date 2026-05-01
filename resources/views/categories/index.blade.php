@@ -27,7 +27,7 @@
                         <p class="mt-1 text-sm text-gray-600">新しいカテゴリーを追加します。</p>
                     </header>
 
-                    <form method="post" action="{{ route('categories.store') }}" class="mt-6 space-y-6">
+                    <form method="post" action="{{ route('admin.categories.store') }}" class="mt-6 space-y-6">
                         @csrf
                         <div>
                             <x-input-label for="name" value="カテゴリー名" />
@@ -69,7 +69,7 @@
                                 <td class="py-2 px-4">{{ $category->slug }}</td>
                                 <td class="py-2 px-4">{{ $category->created_at->format('Y-m-d') }}</td>
                                 <td class="py-2 px-4 flex items-center gap-4">
-                                    <a href="{{ route('categories.edit', $category) }}" class="text-indigo-600 hover:text-indigo-900 text-sm">
+                                    <a href="{{ route('admin.categories.edit', $category) }}" class="text-indigo-600 hover:text-indigo-900 text-sm">
                                         編集
                                     </a>
 
@@ -81,7 +81,7 @@
                                     </x-danger-button>
 
                                     <x-modal name="confirm-category-deletion-{{ $category->id }}" :show="$errors->userDeletion->isNotEmpty()" focusable>
-                                        <form method="post" action="{{ route('categories.destroy', $category) }}" class="p-6">
+                                        <form method="post" action="{{ route('admin.categories.destroy', $category) }}" class="p-6">
                                             @csrf
                                             @method('delete')
 

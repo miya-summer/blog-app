@@ -42,7 +42,7 @@ class CategoryController extends Controller
         Category::create($validated);
 
         // 3. 元の画面に戻る（成功メッセージを添えて）
-        return redirect()->route('categories.index')->with('status', 'カテゴリーを登録しました！');
+        return redirect()->route('admin.categories.index')->with('status', 'カテゴリーを登録しました！');
     }
 
     /**
@@ -74,7 +74,7 @@ class CategoryController extends Controller
 
         $category->update($validated);
 
-        return redirect()->route('categories.index')->with('status', 'カテゴリーを更新しました！');
+        return redirect()->route('admin.categories.index')->with('status', 'カテゴリーを更新しました！');
     }
 
     /**
@@ -84,6 +84,6 @@ class CategoryController extends Controller
     {
         $category->delete();
 
-        return redirect()->route('categories.index')->with('status', 'カテゴリーを削除しました！');
+        return redirect()->route('admin.categories.index')->with('status', 'カテゴリーを削除しました！');
     }
 }
