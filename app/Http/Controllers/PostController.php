@@ -18,7 +18,7 @@ class PostController extends Controller
         $posts = Post::with('categories')->latest()->get();
 
         // posts/index.blade.php を表示する
-        return view('posts.index', compact('posts'));
+        return view('admin.posts.index', compact('posts'));
     }
 
     /**
@@ -29,7 +29,7 @@ class PostController extends Controller
         // チェックボックスに出すために全カテゴリを取得
         $categories = Category::all();
 
-        return view('posts.create', compact('categories'));
+        return view('admin.posts.create', compact('categories'));
     }
 
     /**
@@ -78,7 +78,7 @@ class PostController extends Controller
         $categories = Category::all();
 
         // posts/edit.blade.php を表示（現在の記事データとカテゴリを渡す）
-        return view('posts.edit', compact('post', 'categories'));
+        return view('admin.posts.edit', compact('post', 'categories'));
     }
 
     /**
