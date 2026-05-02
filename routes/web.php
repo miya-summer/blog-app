@@ -4,11 +4,11 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\FrontendPostController;
 
 // --- 公開ページ（将来的にここを広げていく） ---
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [FrontendPostController::class, 'index'])->name('home');
+Route::get('/posts/{post}', [FrontendPostController::class, 'show'])->name('posts.show');
 
 // --- 管理画面（/admin プレフィックス配下） ---
 Route::middleware(['auth', 'verified'])->prefix('admin')->as('admin.')->group(function () {
