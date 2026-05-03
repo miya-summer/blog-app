@@ -15,4 +15,10 @@ class FrontendPostController extends Controller
         // 2. ビルドした変数を view に渡す
         return view('frontend.posts.index', compact('posts'));
     }
+
+    public function show(Post $post)
+    {
+        // ルートモデルバインディングにより、$post には自動的に該当記事が入ります
+        return view('frontend.posts.show', compact('post'));
+    }
 }
