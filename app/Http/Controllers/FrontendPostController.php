@@ -11,7 +11,7 @@ class FrontendPostController extends Controller
     public function index()
     {
         // 1. データベースから記事を取得する
-        $posts = Post::all(); 
+        $posts = Post::latest()->paginate(10);
 
         // 2. ビルドした変数を view に渡す
         return view('frontend.posts.index', compact('posts'));
