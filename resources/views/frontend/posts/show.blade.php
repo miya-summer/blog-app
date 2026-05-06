@@ -21,8 +21,9 @@
                 @endforelse
             </div>
             
-            <div class="prose max-w-none text-lg leading-relaxed">
-                {!! nl2br(e($post->body)) !!}
+            {{-- 修正後：HTMLとしてレンダリングさせる --}}
+            <div class="prose max-w-none">
+                {!! $post->body_html !!}
             </div>
         </article>
 

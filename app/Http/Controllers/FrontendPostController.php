@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class FrontendPostController extends Controller
 {
@@ -19,6 +20,11 @@ class FrontendPostController extends Controller
 
     public function show(Post $post)
     {
+        $post->body_html = Str::markdown($post->body, [
+            'html_input' => 'strip', // HTMLタグを直接入力されても無視して削除する
+            'allow_unsafe_links' => false, // javascript: などの危険なリンクを禁止する
+        ]);
+
         // ルートモデルバインディングにより、$post には自動的に該当記事が入ります
         return view('frontend.posts.show', compact('post'));
     }
