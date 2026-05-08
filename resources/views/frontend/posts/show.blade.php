@@ -22,8 +22,16 @@
             </div>
             
             {{-- 修正後：HTMLとしてレンダリングさせる --}}
-            <div class="prose max-w-none">
-                {!! $post->body_html !!}
+            {{--
+                prose-table:w-auto : テーブルの幅を内容に合わせて自動調整 
+                prose-table:border-collapse : テーブルの枠線をくっつける
+                prose-th:border prose-td:border : 各セルに枠線を引く
+                prose-th:bg-gray-100 : ヘッダーに薄いグレーを敷く
+            --}}
+            <div class="overflow-x-auto">
+                <div class="prose max-w-none prose-table:w-auto prose-table:border-collapse prose-th:border prose-td:border prose-th:bg-gray-100 prose-th:px-4 prose-th:py-2 prose-td:px-4 prose-td:py-2">
+                    {!! $post->body_html !!}
+                </div>
             </div>
         </article>
 

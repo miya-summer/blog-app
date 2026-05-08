@@ -20,7 +20,14 @@ class FrontendPostController extends Controller
 
     public function show(Post $post)
     {
+        // GFMを有効化し、セキュリティも担保する設定
         $post->body_html = Str::markdown($post->body, [
+            'commonmark' => [
+                'enable_em' => true,
+                'enable_strong' => true,
+                'use_asterisk' => true,
+                'use_underscore' => true,
+            ],
             'html_input' => 'strip', // HTMLタグを直接入力されても無視して削除する
             'allow_unsafe_links' => false, // javascript: などの危険なリンクを禁止する
         ]);
