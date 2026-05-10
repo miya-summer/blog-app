@@ -6,6 +6,7 @@ use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
 use League\CommonMark\MarkdownConverter;
+use Spatie\CommonMarkShikiHighlighter\HighlightCodeExtension;
 
 class MarkdownService
 {
@@ -25,6 +26,9 @@ class MarkdownService
         $environment = new Environment($config);
         $environment->addExtension(new CommonMarkCoreExtension());
         $environment->addExtension(new GithubFlavoredMarkdownExtension());
+
+        // Shikiを合体して、色味のテーマを引数にして渡す
+        $environment->addExtension(new HighlightCodeExtension('github-dark'));
 
         $converter = new MarkdownConverter($environment);
 
