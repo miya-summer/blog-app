@@ -2,36 +2,21 @@
 
 namespace App\Services;
 
-use League\CommonMark\Environment\Environment;
-use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
-use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
-use League\CommonMark\MarkdownConverter;
-use Spatie\CommonMarkShikiHighlighter\HighlightCodeExtension;
+use Spatie\LaravelMarkdown\MarkdownRenderer;
 
 class MarkdownService
 {
     public function convert(string $markdown): string
     {
-        $config = [
-            'commonmark' => [
-                'enable_em' => true,
-                'enable_strong' => true,
-                'use_asterisk' => true,
-                'use_underscore' => true,
-            ],
-            'html_input' => 'strip',
-            'allow_unsafe_links' => false,
-        ];
-
-        $environment = new Environment($config);
-        $environment->addExtension(new CommonMarkCoreExtension());
-        $environment->addExtension(new GithubFlavoredMarkdownExtension());
-
-        // Shikiを合体して、色味のテーマを引数にして渡す
-        $environment->addExtension(new HighlightCodeExtension('github-dark'));
-
-        $converter = new MarkdownConverter($environment);
-
-        return $converter->convert($markdown)->getContent();
+        // 1. app() でパッケージを呼び出す
+        // 2. メソッドチェーンで「こだわり」を注入する
+        // 3. 最後に toHtml() で変換を実行する
+        return app(MarkdownRenderer::class)
+            ->highlightTheme('github-dark')
+            ->commonmarkOptions([
+                'html_input' => 'strip',
+                'allow_unsafe_links' => false,
+            ])
+            ->toHtml($markdown);
     }
 }
